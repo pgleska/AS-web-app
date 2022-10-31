@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Message</title>
+	<link rel="stylesheet" th:href="@{/css/menu.css}"></head>
+	<link rel="stylesheet" th:href="@{/css/success.css}"></head>
+<body>
+	<nav class="main-menu">
+	    <ul>
+	        <li>
+	            <a href="/tournaments">
+	                <i class="fa fa-home fa-2x"></i>
+	                <span class="nav-text">
+	                    Tournaments
+	                </span>
+	            </a>
+	          
+	        </li>
+	        <li>
+	            <a href="/tournaments/create">
+	                <i class="fa fa-plus fa-2x"></i>
+	                <span class="nav-text">
+	                    Create tournament
+	                </span>
+	            </a>	        
+	        </li>
+	        <li>
+	            <a href="/tournaments/upcoming">
+	                <i class="fa fa-trophy fa-2x"></i>
+	                <span class="nav-text">
+	                    Upcoming tournaments
+	                </span>
+	            </a>	            
+	        </li>
+	    </ul>
+	
+	    <ul class="logout">
+	        <li>
+	           <a href="/logout">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Logout
+	                </span>
+	            </a>
+	        </li>  
+	    </ul>
+    </nav>
+    <div class="container">
+		<h1>Message!</h1>
+		<h3 th:text="${message}"></h3>		
+	</div>
+</body>
+</html>

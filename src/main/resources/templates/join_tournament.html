@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Join to Tournament</title>
+	<link rel="stylesheet" th:href="@{/css/menu.css}">
+	<link rel="stylesheet" th:href="@{/css/create_tournament.css}">
+</head>
+<body>
+	<nav class="main-menu">
+	    <ul>
+	        <li>
+	            <a href="/tournaments">
+	                <i class="fa fa-home fa-2x"></i>
+	                <span class="nav-text">
+	                    Tournaments
+	                </span>
+	            </a>
+	          
+	        </li>
+	        <li>
+	            <a href="/tournaments/create">
+	                <i class="fa fa-plus fa-2x"></i>
+	                <span class="nav-text">
+	                    Create tournament
+	                </span>
+	            </a>	           
+	        </li>
+	        <li>
+	            <a href="/tournaments/upcoming">
+	                <i class="fa fa-trophy fa-2x"></i>
+	                <span class="nav-text">
+	                    Upcoming tournaments
+	                </span>
+	            </a>	            
+	        </li>
+	    </ul>
+	
+	    <ul class="logout">
+	        <li>
+	           <a href="/logout">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Logout
+	                </span>
+	            </a>
+	        </li>  
+	    </ul>
+    </nav>
+    <div id="container">
+    	<hgroup>
+    		<h1 th:text="${tournament.name}"></h1>
+    	</hgroup>
+		<form th:action="@{/tournaments/} + ${tournament.id} + @{/join}" th:object="${point}" method="post">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>License number</label><br>
+		        <input th:field="*{licenseNumber}" class="mdl-textfield__input_reg" type="number" min=1 max=2147483/>
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Ranking position</label><br>
+		        <input th:field="*{rankingPosition}" class="mdl-textfield__input_reg" type="number" min=1 max=2147483/>
+		    </div>
+			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Join to tournament</button>
+		</form>
+	</div>
+</body>
+</html>

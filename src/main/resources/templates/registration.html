@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tournament App - Registration</title>
+	<link rel="stylesheet" th:href="@{/css/login.css}">		
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+	<div class="container">
+		<hgroup>		
+			<h1>Create new account</h1>
+		</hgroup>
+		<form th:action="@{/user/registration}" th:object="${user}" method="post" enctype="utf8">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>First name</label><br>
+		        <input th:field="*{firstName}" class="mdl-textfield__input_reg" required/>		        
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Last name</label><br>
+		        <input th:field="*{lastName}" class="mdl-textfield__input_reg" required/>		        
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Email</label><br>
+		        <input type="email" th:field="*{email}" class="mdl-textfield__input_reg" required/>		     
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Password</label><br>
+		        <input type="password" th:field="*{password}" class="mdl-textfield__input_reg" required/>		        
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Confirm password</label><br>
+		        <input type="password" th:field="*{matchingPassword}" class="mdl-textfield__input_reg" required/>
+		    </div>
+		    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Create</button>
+		    <div>
+		    	<a href="/login">Go back to login page</a>
+		    </div>
+		</form>				
+	</div>
+</body>	
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Detailed</title>
+	<link rel="stylesheet" th:href="@{/css/menu.css}">
+	<link rel="stylesheet" th:href="@{/css/detailed.css}">	
+</head>
+<body>
+	<nav class="main-menu">
+	    <ul>
+	        <li>
+	            <a href="/tournaments">
+	                <i class="fa fa-home fa-2x"></i>
+	                <span class="nav-text">
+	                    Tournaments
+	                </span>
+	            </a>
+	          
+	        </li>
+	        <li>
+	            <a href="/tournaments/create">
+	                <i class="fa fa-plus fa-2x"></i>
+	                <span class="nav-text">
+	                    Create tournament
+	                </span>
+	            </a>	        
+	        </li>
+	        <li>
+	            <a href="/tournaments/upcoming">
+	                <i class="fa fa-trophy fa-2x"></i>
+	                <span class="nav-text">
+	                    Upcoming tournaments
+	                </span>
+	            </a>	            
+	        </li>
+	    </ul>
+	
+	    <ul class="logout">
+	        <li>
+	           <a href="/logout">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Logout
+	                </span>
+	            </a>
+	        </li>  
+	    </ul>
+    </nav>
+    <div class="content">
+    	<div class="container">
+    		<div class="sponsors">
+    			<img alt="Red Bull SoloQ" th:src="@{/img/red-bull-solo-q-logo.png}">
+    		</div>    	    	    	
+	    	<table>
+	    		<tr>
+	    			<th>Name:</th>
+	    			<td th:text="${tournament.name}"></td>
+	    		</tr>
+	    		<tr>
+	    			<th>Discipline:</th>
+	    			<td th:text="${tournament.discipline}"></td>
+	    		</tr>
+	    		<tr>
+	    			<th>End of Registration:</th>
+	    			<td th:text="${tournament.startingDate}"></td>
+	    		</tr>
+	    		<tr>
+	    			<th>Participants:</th>
+	    			<td th:text="${tournament.participants}"></td>
+	    		</tr>
+	    		<tr>
+	    			<th>Max number of Participants:</th>
+	    			<td th:text="${tournament.maxNumberOfParticipants}"></td>
+	    		</tr>
+	    		<tr>
+	    			<th>Organizer email:</th>
+	    			<td th:text="${tournament.organizer.email}"></td>
+	    		</tr>
+	    	</table>
+	    	<div class="others">
+				<a th:href="${link}">Show location in Google Maps</a>
+				<form th:action="@{/tournaments/} + ${tournament.id} + @{/join}" method="get">
+					<button type="submit" th:disabled="${disabled}">Join to tournament</button>
+				</form>
+			</div>
+			<table>
+	     		<tr>
+	     			<th>Game</th>  
+	     			<th>Winner</th>   				
+	     		</tr>	     		
+	     		<tr th:each="game : ${games}">
+     				<td th:text="${game.description}"></td>
+     				<td>
+     					<form th:action="@{/tournaments/} + ${tournament.id} + @{/winner}" method="post">     					     				
+							<select name="winner" id="winner" th:disabled="${game.disableSelect}">
+							  <option value="" selected hidden disabled th:text="${game.winnerName}"></option>
+							  <option th:value="${game.playerOneIdentifier}" th:text="${game.playerOneName}"></option>
+							  <option th:value="${game.playerTwoIdentifier}" th:text="${game.playerTwoName}"></option>
+							</select>
+							<input type="submit" value="Confirm" th:disabled="${game.disableSelect}">
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						</form>
+     				</td>
+	     		</tr>
+	     		<tr>
+	     			<th>Winner of the tournament:</th>
+	     			<td th:text="${tournamentWinner}"></td>
+	     		</tr>
+	     	</table>
+	     </div>
+	</div>
+</body>
+</html>

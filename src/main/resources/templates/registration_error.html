@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Error</title>
+	<link rel="stylesheet" th:href="@{/css/success.css}">	
+</head>
+<body>
+	<div class="container">
+		<h1>Error!</h1>
+		<h3 th:text="${error}"></h3>
+		<a href="/user/registration">Go back to registration page</a>
+	</div>
+</body>
+</html>

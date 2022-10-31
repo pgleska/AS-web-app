@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Success</title>
+	<link rel="stylesheet" th:href="@{/css/success.css}">	
+</head>
+<body>
+	<div class="container">
+		<h1>Success!</h1>
+		<h3 th:unless="${status}">Registration was successful.</h3>
+		<h3 th:if="${!status && link != null}">Click following link to enable account: <a th:href="@{${link}}">link</a></h3>
+		<h3 th:if="${status}">Account confirmed!</h3>
+		<a href="/login">Go to login page</a>
+	</div>
+</body>
+</html>

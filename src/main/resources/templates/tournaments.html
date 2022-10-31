@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Tournaments</title>
+	<link rel="stylesheet" th:href="@{/css/menu.css}">	
+	<link rel="stylesheet" th:href="@{/css/table.css}">
+	<link rel="stylesheet" th:href="@{/css/buttons.css}">
+</head>
+<body>
+	<nav class="main-menu">
+	    <ul>
+	        <li>
+	            <a href="/tournaments">
+	                <i class="fa fa-home fa-2x"></i>
+	                <span class="nav-text">
+	                    Tournaments
+	                </span>
+	            </a>
+	          
+	        </li>
+	        <li>
+	            <a href="/tournaments/create">
+	                <i class="fa fa-plus fa-2x"></i>
+	                <span class="nav-text">
+	                    Create tournament
+	                </span>
+	            </a>
+	            
+	        </li>
+	        <li>
+	            <a href="/tournaments/upcoming">
+	                <i class="fa fa-trophy fa-2x"></i>
+	                <span class="nav-text">
+	                    Upcoming tournaments
+	                </span>
+	            </a>	            
+	        </li>
+	    </ul>
+	
+	    <ul class="logout">
+	        <li>
+	           <a href="/logout">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Logout
+	                </span>
+	            </a>
+	        </li>  
+	    </ul>
+    </nav>
+    <div class="container">
+    	<h3 class="upcoming">All tournaments</h3>
+    	<form class="search" th:action="@{/tournaments}" method="get">
+		   		<label for="fname">Name:</label>
+  				<input type="text" id="name" name="name">
+  				<input type="submit" value="Search">
+		</form>
+		<div class="buttons">    
+		   	<form th:action="@{/tournaments}" method="get">
+		   		<input type="hidden" name="page" th:value="${previousPage}">
+				<button type="submit" th:disabled="${previousBlocked}">Previous Page</button>
+			</form>
+			<form th:action="@{/tournaments}" method="get">
+				<input type="hidden" name="page" th:value="${nextPage}">
+				<button type="submit" th:disabled="${nextBlocked}">Next Page</button>
+			</form>
+		</div>		
+     	<table>
+     		<thead>
+     			<tr>
+     				<th>Name</th>
+     				<th>Discipline</th>
+     				<th>End of Registration Date</th>
+     				<th>Participants</th>
+     				<th>Max Number of Participants</th>
+     			</tr>
+     		</thead>
+     		<tbody>
+     			<tr th:each="tournament : ${tournaments}">
+     				<td th:text="${tournament.name}" th:onclick="|window.location.href='/tournaments/${tournament.id}'|"></td>
+     				<td th:text="${tournament.discipline}" th:onclick="|window.location.href='/tournaments/${tournament.id}'|"></td>
+     				<td th:text="${tournament.startingDate}" th:onclick="|window.location.href='/tournaments/${tournament.id}'|"></td>
+     				<td th:text="${tournament.participants}" th:onclick="|window.location.href='/tournaments/${tournament.id}'|"></td>
+     				<td th:text="${tournament.maxNumberOfParticipants}" th:onclick="|window.location.href='/tournaments/${tournament.id}'|"></td>
+     			</tr>
+     		</tbody>
+     	</table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+html,body {
+	font-family: "Roboto", "Helvetica","Arial",sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	color: #555555;
+	color: rgb(85, 85, 85);
+}
+
+body {
+	margin: 0;
+	background-color: #e6e6e6;
+	background-color: rgb(230, 230, 230);
+	min-height: 0;
+}
+
+a { text-decoration: none; }
+
+#container {
+	min-height: 100%;
+	width: 100%;
+}
+
+form {
+	width: 400px;
+	margin: 3em auto 3em auto;
+	padding: 2em 2em 2em 2em;
+	background: #ffffff;
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(206, 206, 206);
+	box-shadow: 2px 2px #cecece;
+	box-shadow: 2px 2px rgb(206, 206, 206);
+	box-shadow: 2px 2px rgba(27, 27, 27, .1);
+}
+
+:required {
+	box-shadow: none;
+}
+
+form button { width: 400px; }
+
+form h3 {
+	color: #555555;
+	color: rgb(85, 85, 85);
+	font-size: 18px;
+	margin:0;
+	text-decoration: none;
+	line-height: 24px;
+}
+
+hgroup { 
+	text-align:center;
+	margin-top: 4em;
+}
+
+h1, h3 { font-weight: 350; }
+
+h1 {
+	color: #333333;
+	color: rgb(51,51,51);
+	margin-top: 0;
+}
+
+h3 { 
+	color: #333333;
+	color: rgb(51,51,51); 
+	}
+
+
+#blue-link:hover {
+	color: #32a6d3;
+	color: rgb(50, 166, 211);
+}
+
+.mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab {
+    color: #ffffff;
+    color: rgb(255,255,255);
+    background-color: #32a6d3;
+    background-color: rgb(50, 166, 211)
+}
+
+@media only screen and (min-width: 150px) and (max-width: 360px)
+{
+	form {
+		width: auto;
+		/*margin: 4em auto;*/
+		padding: 2em 2em 2em 2em;
+		background: #e6e6e6;
+		background: rgb(230, 230, 230);
+		border: none;
+		box-shadow: none;
+	}
+
+	h1 { font-size: 36px; }
+
+	h3 { font-size: 24px; }
+
+	form button { width: 100%; }
+}
+
+/*** overrides material.css ***/
+
+.mdl-button--raised {
+	box-shadow: none;
+	margin: 16px 0;
+	padding: 0;
+	height: 40px;
+}
+
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+	color: #333333;
+	color: rgb(51,51,51);
+	top: 0px;
+	font-size: 14px;
+}
+
+.mdl-button {
+	border-radius: 0;
+}
+
+.mdl-textfield__input {
+	border: none;
+	border: 1px solid #cccccc!important;
+	border: 1px solid rgb(204,204,204)!important;
+	padding: 6px 0;
+}
+
+.mdl-textfield__input_reg {
+	border: none;
+	border: 1px solid #cccccc!important;
+	border: 1px solid rgb(204,204,204)!important;
+	padding: 3px 0;
+	width: 100%	
+}
+
+
+.mdl-textfield__input:focus,  .mdl-textfield__input:active {
+	border: none;
+	border: 1px solid #32a6d3!important;
+	border: 1px solid rgb(50, 166, 211)!important;
+}
+
+input#username.mdl-textfield__input{
+	color: #333333;
+	color: rgb(51, 51, 51);
+	padding-left: 4px;
+	box-sizing:border-box;
+	min-height: 2.71rem;
+	min-width: 100%;
+}
+
+input#password.mdl-textfield__input{
+	color: #333333;
+	color: rgb(51, 51, 51);
+	padding-left: 4px;
+	box-sizing: border-box;
+	min-height: 2.71rem;
+	min-width: 100%;
+}
+
+.mdl-textfield {
+	padding: 15px 0;
+	width: 400px;
+}
+
+
+/*** overrides yellow background from inputfield in chrome ***/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 50px white inset!important;
+    -webkit-text-fill-color: rgb(85, 85, 85)!important;
+}
+ 

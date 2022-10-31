@@ -1,0 +1,40 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    hostname: tournament-db
+    container_name: tournament-db
+    volumes:
+      - ./docker/db/tournament.sql:/docker-entrypoint-initdb.d/tournament.sql:ro
+      - ./docker/db/dump/:/opt/dump/
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysecretpassword
+      - MYSQL_DATABASE=tournament
+      - MYSQL_ADMIN=admin
+      - MYSQL_PASSWORD=mysecretpassword 
+    networks:
+      - tournament
+#    ports:
+#     - 3306:3306
+
+  backend:
+    build: ./docker/backend
+    restart: always
+    hostname: tournament-backend
+    container_name: tournament-backend
+    volumes:
+      - ./docker/backend/TournamentApp.war:/opt/tournament/TournamentApp.war:ro
+    ports:
+      - 8001:8001
+      - 8080:8080  
+      - 8019:8001
+    depends_on:
+      - db
+    environment:    
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8001
+    networks:
+      - tournament 
+      
+networks:
+  tournament:
