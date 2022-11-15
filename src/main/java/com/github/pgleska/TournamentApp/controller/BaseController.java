@@ -1,5 +1,7 @@
 package com.github.pgleska.TournamentApp.controller;
 
+import java.security.Principal;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,8 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pgleska.TournamentApp.service.UserService;
+
 @Controller
 public class BaseController {
+	
+	private UserService userService;
+	
+	public BaseController(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@GetMapping("/")
 	public String base() {
@@ -39,7 +49,8 @@ public class BaseController {
 	}
 
 	@GetMapping("/message")
-	public String message(@RequestParam Integer code, Model model) {
+	public String message(@RequestParam Integer code, Model model, Principal principal) {
+		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
 		String message = "";
 		if(code == null) {
 			message = "Unknown error";
@@ -83,6 +94,9 @@ public class BaseController {
 					break;
 				case 13:
 					message = "Incorrect format of license number or ranking position.";
+					break;
+				case 14:
+					message = "Invalid format of user ID. Must be integer.";
 					break;
 				default:
 					message = "Unknown error";

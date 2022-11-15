@@ -1,5 +1,6 @@
 package com.github.pgleska.TournamentApp.validation;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.github.pgleska.TournamentApp.dto.UserDto;
+import com.github.pgleska.TournamentApp.model.ApplicationUser;
 import com.github.pgleska.TournamentApp.service.UserService;
 
 @Component
@@ -37,7 +39,8 @@ public class UserValidator implements Validator {
 		if(!matcher.matches())
 			errors.reject("email", "invalid.email");
 		
-		if(userService.findByEmail(userDto.getEmail()).isPresent()) 
+		Optional<ApplicationUser> repeatedUser = userService.findByEmail(userDto.getEmail()); 		
+		if(repeatedUser.isPresent() && repeatedUser.get().getId() != userDto.getId()) 
 			errors.reject("email", "repeated.email");
 		
 	}

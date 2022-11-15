@@ -109,4 +109,8 @@ public class UserService {
 	public Optional<ApplicationUser> findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+	
+	public boolean checkIfAdmin(String email) {
+		return userRepository.findByEmail(email).get().getRole().equals("admin");
+	}
 }

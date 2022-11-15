@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>User pane</title>
+	<link rel="stylesheet" th:href="@{/css/menu.css}">	
+	<link rel="stylesheet" th:href="@{/css/table.css}">
+	<link rel="stylesheet" th:href="@{/css/buttons.css}">
+</head>
+<body>
+	<nav class="main-menu">
+	    <ul>
+	        <li>
+	            <a href="/tournaments">
+	                <i class="fa fa-home fa-2x"></i>
+	                <span class="nav-text">
+	                    Tournaments
+	                </span>
+	            </a>
+	          
+	        </li>
+	        <li>
+	            <a href="/tournaments/create">
+	                <i class="fa fa-plus fa-2x"></i>
+	                <span class="nav-text">
+	                    Create tournament
+	                </span>
+	            </a>	           
+	        </li>
+	        <li>
+	            <a href="/tournaments/upcoming">
+	                <i class="fa fa-trophy fa-2x"></i>
+	                <span class="nav-text">
+	                    Upcoming tournaments
+	                </span>
+	            </a>	            
+	        </li>
+			<li>
+				<a href="/admin/pane">
+					<i class="fa fa-user fa-2x"></i>
+					<span class="nav-text">
+	                    Admin panel
+	                </span>
+				</a>
+			</li>
+	    </ul>
+	
+	    <ul class="logout">
+	        <li>
+	           <a href="/logout">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Logout
+	                </span>
+	            </a>
+	        </li>  
+	    </ul>
+    </nav>
+    <div class="container">
+		<hgroup>		
+			<h1>Update user</h1>
+		</hgroup>
+		<form th:action="@{/admin/pane/users}" th:object="${user}" method="post" enctype="utf8">
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>First name</label><br>
+		        <input th:field="*{firstName}" class="mdl-textfield__input_reg" required/>		        
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Last name</label><br>
+		        <input th:field="*{lastName}" class="mdl-textfield__input_reg" required/>		        
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Email</label><br>
+		        <input type="email" th:field="*{email}" class="mdl-textfield__input_reg" required/>		     
+		    </div>		    
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Role</label><br>
+		        <input th:field="*{role}" class="mdl-textfield__input_reg" required/>
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		        <label>Enabled</label><br>
+		        <input th:field="*{enabled}" class="mdl-textfield__input_reg" required/>
+		    </div>
+		    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" hidden>
+		        <label>Id</label><br>
+		        <input th:field="*{id}" class="mdl-textfield__input_reg" required/>
+		    </div>
+		    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Update</button>		    
+		</form>				
+	</div>
+</body>
+</html>

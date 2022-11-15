@@ -40,7 +40,7 @@ CREATE TABLE `application_user` (
 
 LOCK TABLES `application_user` WRITE;
 /*!40000 ALTER TABLE `application_user` DISABLE KEYS */;
-INSERT INTO `application_user`(`id`,`email`,`password`,`first_name`,`last_name`,`enabled`,`roles`) VALUES (1,'jkowalski@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Jan','Kowalski',1, 'user'),(2,'anowak@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Anna','Nowak',1,'user'),(3,'wgorczak@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Wiktor','Górczak',1,'user'),(4,'mszczepaniak@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Michał','Szczepaniak',1,'user');
+INSERT INTO `application_user`(`id`,`email`,`password`,`first_name`,`last_name`,`enabled`,`roles`) VALUES (1,'jkowalski@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Jan','Kowalski',1, 'admin'),(2,'anowak@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Anna','Nowak',1,'user'),(3,'wgorczak@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Wiktor','Górczak',1,'user'),(4,'mszczepaniak@gmail.com','$2a$10$FhM/tff7C6DU5PA87BdgR.spZS7l6h0LYH2WDd7KchD6nayELNdzK','Michał','Szczepaniak',1,'user');
 /*!40000 ALTER TABLE `application_user` ENABLE KEYS */;
 UNLOCK TABLES;
 

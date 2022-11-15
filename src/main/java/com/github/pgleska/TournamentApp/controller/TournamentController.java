@@ -34,6 +34,7 @@ import com.github.pgleska.TournamentApp.model.Tournament;
 import com.github.pgleska.TournamentApp.repository.TournamentRepository;
 import com.github.pgleska.TournamentApp.repository.UserRepository;
 import com.github.pgleska.TournamentApp.service.TournamentService;
+import com.github.pgleska.TournamentApp.service.UserService;
 
 @Controller
 public class TournamentController {
@@ -43,14 +44,16 @@ public class TournamentController {
 	private final TournamentRepository tournamentRepository;
 	private final TournamentService tournamentService;
 	private final UserRepository userRepository;
+	private final UserService userService;
 	
 	private Pattern pattern;	
 	
 	public TournamentController(TournamentRepository tournamentRepository, TournamentService tournamentService,
-			UserRepository userRepository) {
+			UserRepository userRepository, UserService userService) {
 		this.tournamentRepository = tournamentRepository;
 		this.tournamentService = tournamentService;
 		this.userRepository = userRepository;
+		this.userService = userService;
 		
 		pattern = Pattern.compile("^[0-9]+;[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");		
 	}
@@ -64,7 +67,8 @@ public class TournamentController {
 		boolean guest = true;
 		if(Objects.nonNull(principal))
 			guest = false;		
-		model.addAttribute("guest", guest);
+		model.addAttribute("guest", guest);		
+		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
 		
 		Integer pageIdx = 0;
 		if(Objects.nonNull(pageIdxS)) {
@@ -110,6 +114,7 @@ public class TournamentController {
 		if(Objects.nonNull(principal))
 			guest = false;		
 		model.addAttribute("guest", guest);
+		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
 		
 		Integer id = 0;
 		try {
@@ -205,7 +210,8 @@ public class TournamentController {
 	}
 	
 	@GetMapping("/tournaments/create")
-	public String getCreateTournament(Model model) {
+	public String getCreateTournament(Model model, Principal principal) {
+		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
 		TournamentDto tournament = new TournamentDto();
 		model.addAttribute("tournament", tournament);
 		return "create_tournament";
@@ -222,6 +228,7 @@ public class TournamentController {
 	
 	@GetMapping("/tournaments/upcoming")
 	public String getUpcomingTournaments(Model model, Principal principal) {
+		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
 		ApplicationUser organizer = userRepository.findByEmail(principal.getName()).orElse(null);
 		List<Tournament> tournaments = tournamentRepository.findAll();
 		List<Tournament> filtered = tournaments.stream().filter(t -> t.getMembers().contains(organizer)).collect(Collectors.toList());

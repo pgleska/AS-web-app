@@ -23,7 +23,7 @@
 	                <span class="nav-text">
 	                    Create tournament
 	                </span>
-	            </a>	        
+	            </a>	           
 	        </li>
 	        <li>
 	            <a href="/tournaments/upcoming">
@@ -33,9 +33,9 @@
 	                </span>
 	            </a>	            
 	        </li>
-			<li>
+			<li th:if="${admin}">
 				<a href="/admin/pane">
-					<i class="fa fa-trophy fa-2x"></i>
+					<i class="fa fa-user fa-2x"></i>
 					<span class="nav-text">
 	                    Admin panel
 	                </span>
