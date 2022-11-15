@@ -143,7 +143,7 @@ CREATE TABLE `tournament` (
 
 LOCK TABLES `tournament` WRITE;
 /*!40000 ALTER TABLE `tournament` DISABLE KEYS */;
-INSERT INTO `tournament` VALUES (1,'Alpha','SoloQ','2021-06-25',52.5063,13.4436,3,8,1,0),(2,'Beta','SoloQ','2021-07-10',57,180,0,10,1,1),(3,'Gamma','SoloQ','2021-07-06',-90,-180,0,57,1,0),(4,'Delta','SoloQ','2021-07-08',-90,180,0,66,1,0),(5,'Alpha 2','SoloQ','2021-07-09',90,-180,0,16,1,0),(6,'Gamma Delta','SoloQ','2021-07-07',-90,-180,0,2,1,0),(7,'ABC','SoloQ','2021-07-24',35,156,0,19,1,0),(8,'FGH','SoloQ','2021-07-09',-25,-57,0,13,1,0),(9,'GHI','SoloQ','2021-07-26',50,-25,0,67,1,0),(10,'1234','SoloQ','2021-07-21',38,-120,0,89,1,0),(11,'001','SoloQ','2021-07-01',12,-90,0,5,1,0),(12,'002','SoloQ','2021-07-07',80,-40,0,11,1,0),(13,'003','SoloQ','2021-07-09',78,123,0,11,1,0);
+INSERT INTO `tournament` VALUES (1,'Alpha','SoloQ','2023-06-25',52.5063,13.4436,3,8,1,0),(2,'Beta','SoloQ','2022-07-10',57,180,0,10,1,1),(3,'Gamma','SoloQ','2023-07-06',-90,-180,0,57,1,0),(4,'Delta','SoloQ','2022-07-08',-90,180,0,66,1,0),(5,'Alpha 2','SoloQ','2022-07-09',90,-180,0,16,1,0),(6,'Gamma Delta','SoloQ','2023-07-07',-90,-180,0,2,1,0),(7,'ABC','SoloQ','2022-07-24',35,156,0,19,1,0),(8,'FGH','SoloQ','2023-07-09',-25,-57,0,13,1,0),(9,'GHI','SoloQ','2022-07-26',50,-25,0,67,1,0),(10,'1234','SoloQ','2023-07-21',38,-120,0,89,1,0),(11,'001','SoloQ','2022-07-01',12,-90,0,5,1,0),(12,'002','SoloQ','2022-07-07',80,-40,0,11,1,0),(13,'003','SoloQ','2023-07-09',78,123,0,11,1,0);
 /*!40000 ALTER TABLE `tournament` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,4 +225,4 @@ GRANT ALL PRIVILEGES ON *.* TO 'tournament'@'%' WITH GRANT OPTION;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-29 19:08:00
+-- Dump completed on 2022-06-29 19:08:00
