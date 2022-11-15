@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrator panel</title>
+    <script>
+        function openEditUserDialog(id, email, firstName, lastName, enabled, role) {
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div id="1">
+        <table>
+            <thead>
+            <tr>
+                <th>E-mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" >
+                <td th:text="${user.email}"></td>
+                <td>
+                    <button style="color:rgb(50, 166, 211);" th:data1="${user.id}" th:data2="${user.email}" th:data3="${user.firstName}" th:data4="${user.lastName}"
+                            th:data5="${user.enabled}" th:data6="${user.role}" th:onclick="openEditUserDialog(this.getAttribute('data1'),
+                            this.getAttribute('data2'),this.getAttribute('data3'),this.getAttribute('data4'),this.getAttribute('data5'),this.getAttribute('data6'))">Edit</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+<div id="2">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Discipline</th>
+                <th>End of Registration Date</th>
+                <th>Participants</th>
+                <th>Max Number of Participants</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tournament : ${tournaments}">
+                <td th:text="${tournament.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+</body>
+</html>
