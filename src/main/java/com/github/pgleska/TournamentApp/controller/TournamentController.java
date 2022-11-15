@@ -65,10 +65,13 @@ public class TournamentController {
 			Principal principal) {				
 		
 		boolean guest = true;
+		boolean admin = false;
 		if(Objects.nonNull(principal))
 			guest = false;		
+			admin = userService.checkIfAdmin(principal.getName());
+				
 		model.addAttribute("guest", guest);		
-		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
+		model.addAttribute("admin", admin);
 		
 		Integer pageIdx = 0;
 		if(Objects.nonNull(pageIdxS)) {
@@ -111,10 +114,12 @@ public class TournamentController {
 	@GetMapping("/tournaments/{idS}")
 	public String detailedTournament(Principal principal, Model model, @PathVariable String idS) {
 		boolean guest = true;
+		boolean admin = false;
 		if(Objects.nonNull(principal))
-			guest = false;		
+			guest = false;
+			admin = userService.checkIfAdmin(principal.getName());
 		model.addAttribute("guest", guest);
-		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
+		model.addAttribute("admin", admin);
 		
 		Integer id = 0;
 		try {

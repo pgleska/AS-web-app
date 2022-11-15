@@ -1,6 +1,7 @@
 package com.github.pgleska.TournamentApp.controller;
 
 import java.security.Principal;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +51,10 @@ public class BaseController {
 
 	@GetMapping("/message")
 	public String message(@RequestParam Integer code, Model model, Principal principal) {
-		model.addAttribute("admin", userService.checkIfAdmin(principal.getName()));
+		boolean admin = false;
+		if(Objects.nonNull(principal))
+			admin = userService.checkIfAdmin(principal.getName());
+		model.addAttribute("admin", admin);
 		String message = "";
 		if(code == null) {
 			message = "Unknown error";
