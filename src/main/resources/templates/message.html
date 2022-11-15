@@ -44,14 +44,22 @@
 	    </ul>
 	
 	    <ul class="logout">
-	        <li>
+	        <li th:if="${guest}">
+	           <a href="/login">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Login
+	                </span>
+	            </a>
+	        </li>
+	        <li th:unless="${guest}">
 	           <a href="/logout">
 	                 <i class="fa fa-power-off fa-2x"></i>
 	                <span class="nav-text">
 	                    Logout
 	                </span>
 	            </a>
-	        </li>  
+	        </li>
 	    </ul>
     </nav>
     <div class="container">

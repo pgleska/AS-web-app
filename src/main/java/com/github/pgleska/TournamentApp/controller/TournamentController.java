@@ -66,9 +66,10 @@ public class TournamentController {
 		
 		boolean guest = true;
 		boolean admin = false;
-		if(Objects.nonNull(principal))
+		if(Objects.nonNull(principal)) {
 			guest = false;		
 			admin = userService.checkIfAdmin(principal.getName());
+		}
 				
 		model.addAttribute("guest", guest);		
 		model.addAttribute("admin", admin);
@@ -115,9 +116,11 @@ public class TournamentController {
 	public String detailedTournament(Principal principal, Model model, @PathVariable String idS) {
 		boolean guest = true;
 		boolean admin = false;
-		if(Objects.nonNull(principal))
+		if(Objects.nonNull(principal)) {
 			guest = false;
 			admin = userService.checkIfAdmin(principal.getName());
+		}
+		
 		model.addAttribute("guest", guest);
 		model.addAttribute("admin", admin);
 		

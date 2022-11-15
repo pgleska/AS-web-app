@@ -52,8 +52,9 @@ public class BaseController {
 	@GetMapping("/message")
 	public String message(@RequestParam Integer code, Model model, Principal principal) {
 		boolean admin = false;
-		if(Objects.nonNull(principal))
+		if(Objects.nonNull(principal)) {
 			admin = userService.checkIfAdmin(principal.getName());
+		}
 		model.addAttribute("admin", admin);
 		String message = "";
 		if(code == null) {
