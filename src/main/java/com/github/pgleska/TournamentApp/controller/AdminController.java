@@ -43,7 +43,7 @@ public class AdminController {
 	@GetMapping(value = "/pane")
 	public String getAdminPane(Principal principal, Model model) {		
 		model.addAttribute("users", userService.findAllUsers());
-		model.addAttribute("tournaments", model);
+		model.addAttribute("tournaments", tournamentService.findAllTournaments());
 		return "admin_pane";
 	}			
 
@@ -64,7 +64,7 @@ public class AdminController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/pane/tournaments")
+	@PostMapping(value = "/pane/tournaments", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getTournamentsAdminPane(@RequestBody TournamentDto tournamentDto) {
 		DataBinder dataBinder = new DataBinder(tournamentDto);
 		dataBinder.setValidator(tournamentValidator);

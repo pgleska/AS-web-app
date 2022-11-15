@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -194,5 +195,9 @@ public class TournamentService {
 	
 	public Optional<Tournament> findById(Integer id) {
 		return tournamentRepository.findById(id);
+	}
+	
+	public List<TournamentDto> findAllTournaments() {
+		return tournamentRepository.findAll().stream().map(t -> TournamentDto.convert(t)).collect(Collectors.toList());		
 	}
 }
