@@ -39,7 +39,7 @@
 	    </ul>
 	
 	    <ul class="logout">
-	        <li>
+	        <li th:unless="${guest}">
 	           <a href="/logout">
 	                 <i class="fa fa-power-off fa-2x"></i>
 	                <span class="nav-text">
@@ -47,7 +47,15 @@
 	                </span>
 	            </a>
 	        </li>  
-	    </ul>
+	        <li th:if="${guest}">
+	           <a href="/login">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Login
+	                </span>
+	            </a>
+	        </li>
+	    </ul>	    	    
     </nav>
     <div class="container">
     	<h3 class="upcoming">All tournaments</h3>

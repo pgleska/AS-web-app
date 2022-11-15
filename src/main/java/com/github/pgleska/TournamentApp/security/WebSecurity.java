@@ -8,7 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
+import com.github.pgleska.TournamentApp.repository.LoginAttemptRepository;
+import com.github.pgleska.TournamentApp.repository.UserRepository;
 import com.github.pgleska.TournamentApp.service.MyUserDetailsService;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -17,12 +21,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private MyUserDetailsService userDetailsService;
+	
+	@Autowired
+	private LoginAttemptRepository loginAttemptRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	    DaoProvider daoAuthenticationProvider = new DaoProvider();
 	    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 	    daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+		daoAuthenticationProvider.setLoginAttemptRepository(loginAttemptRepository);
+	    daoAuthenticationProvider.setUserRepository(userRepository);
 		
 	    auth.authenticationProvider(daoAuthenticationProvider);
 	}
@@ -35,6 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/registration/**").permitAll()
 				.antMatchers("/", "/message", "/tournaments", "/tournaments/{id:\\d+}").permitAll()
 				.antMatchers("/error").permitAll()
+				.antMatchers("/loginfailed").permitAll()
 				.antMatchers("/static/**").permitAll()
 				.antMatchers("/css/**").permitAll()
 				.antMatchers("/img/**").permitAll()
@@ -42,7 +55,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.and()
 				.formLogin()
 	            .loginPage("/login")
-	            .failureUrl("/loginfailed")
+	            .failureHandler(authenticationFailureHandler())
 	            .permitAll()
 	         .and()
 	         	.logout()
@@ -54,5 +67,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+	
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+    
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+        loggingFilter.setIncludeClientInfo(true);
+        loggingFilter.setIncludeQueryString(true);
+        loggingFilter.setIncludePayload(true);
+        loggingFilter.setMaxPayloadLength(64000);
+        return loggingFilter;
     }
 }

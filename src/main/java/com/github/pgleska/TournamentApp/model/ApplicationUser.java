@@ -63,6 +63,9 @@ public class ApplicationUser implements Serializable {
 	@OneToMany(mappedBy = "winner")
 	private Set<Game> gamesAsWinner;
 	
+	@OneToMany(mappedBy = "user")
+	private Set<LoginAttempt> loginAttempts;
+	
 	@ManyToMany(targetEntity = Tournament.class, mappedBy = "members", fetch = FetchType.LAZY)
 	private Set<Tournament> participatedTournaments;
 	
@@ -108,7 +111,7 @@ public class ApplicationUser implements Serializable {
 		this.lastName = lastName;
 	}
 	
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 

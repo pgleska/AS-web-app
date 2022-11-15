@@ -38,7 +38,7 @@ public class ResetListener implements ApplicationListener<OnResetPasswordEvent> 
         String message = "Reset your password"; 
         
         SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom("janusz3564@gmail.com");
+        email.setFrom("");
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + "\r\n" + "http://localhost:8080" + confirmationUrl);

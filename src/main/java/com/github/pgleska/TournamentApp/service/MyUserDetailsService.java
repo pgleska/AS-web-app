@@ -1,5 +1,7 @@
 package com.github.pgleska.TournamentApp.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.github.pgleska.TournamentApp.model.ApplicationUser;
+import com.github.pgleska.TournamentApp.model.LoginAttempt;
+import com.github.pgleska.TournamentApp.repository.LoginAttemptRepository;
 import com.github.pgleska.TournamentApp.repository.UserRepository;
 
 @Service
@@ -21,26 +25,31 @@ import com.github.pgleska.TournamentApp.repository.UserRepository;
 public class MyUserDetailsService implements UserDetailsService {
  
     private final UserRepository userRepository;
+    private final LoginAttemptRepository loginAttemptRepository;
     
-    public MyUserDetailsService(UserRepository userRepository) {
+    public MyUserDetailsService(UserRepository userRepository, LoginAttemptRepository loginAttemptRepository) {
     	this.userRepository = userRepository;
+    	this.loginAttemptRepository = loginAttemptRepository;
 	}
     
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ApplicationUser user = userRepository.findByEmail(username).orElse(null);
-
-        if(user == null) {
-        	throw new UsernameNotFoundException("No user found with username: " + username);
-        }
-        
-        boolean enabled = user.getEnabled();
+    	ApplicationUser user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));            	
+    	
+        boolean enabled = user.isEnabled();
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         
+        List<LoginAttempt> loginAttempts = 
+    			loginAttemptRepository.findFirst5ByUserIdAndStatusOrderByAttemptTimeDesc(user.getId(), 0);    	    	
+        
+        if(loginAttempts.size() >= 5 && ChronoUnit.HOURS.between(loginAttempts.get(4).getAttemptTime(), LocalDateTime.now()) < 1l) {
+        	accountNonLocked = false;
+        }
+        
         List<String> roles = new ArrayList<>();
         
-        if(user.getRole().equals("admon"))
+        if(user.getRole().equals("admin"))
         	roles.addAll(List.of("admin", "user"));
         else 
         	roles.add("user");

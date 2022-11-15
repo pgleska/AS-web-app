@@ -1,5 +1,12 @@
 package com.github.pgleska.TournamentApp.service;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +30,7 @@ public class UserService {
 		this.tokenRepository = tokenRepository;
 	}
 	
+	@Transactional
 	public ApplicationUser registerNewUserAccount(UserDto userDto) throws UserAlreadyExistsException {
 		if (emailExist(userDto.getEmail())) {
             throw new UserAlreadyExistsException("There is an account with that email address: " + userDto.getEmail());
@@ -43,29 +51,62 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 	
+	@Transactional
 	public void createVerificationToken(ApplicationUser user, String token) {
         VerificationToken myToken = new VerificationToken(user, token);
         tokenRepository.save(myToken);
     }
 	
+	@Transactional
 	public VerificationToken getVerificationToken(String token) {
 		return tokenRepository.findByToken(token).orElse(null);
 	}
 	
+	@Transactional
 	public void saveRegisteredUser(ApplicationUser user) {
         userRepository.save(user);
     }
 	
+	@Transactional
 	public void deleteToken(VerificationToken token) {
 		tokenRepository.delete(token);
 	}
 	
+	@Transactional
 	public void deleteUser(ApplicationUser user) {
 		userRepository.delete(user);
 	}
 	
+	@Transactional
 	public void disableAccount(UserDto userDto) throws Exception {
 		ApplicationUser user = userRepository.findById(Long.valueOf(userDto.getId())).orElseThrow(() -> new Exception());
 		user.setEnabled(false);
+	}	
+	
+	public List<UserDto> findAllUsers() {		
+		return userRepository.findAll().stream().map(u -> UserDto.convert(u)).collect(Collectors.toList());
+	}
+	
+	@Transactional
+	public void updateUser(UserDto userDto) {
+		ApplicationUser user = userRepository.findById(userDto.getId()).get();		
+		if(!user.getFirstName().equals(userDto.getFirstName()))
+			user.setFirstName(userDto.getFirstName());
+		if(!user.getLastName().equals(userDto.getLastName()))
+			user.setLastName(userDto.getLastName());
+		if(!user.getEmail().equals(userDto.getEmail()))
+			user.setEmail(userDto.getEmail());
+		if(user.isEnabled() != userDto.isEnabled())
+			user.setEnabled(userDto.isEnabled());
+		if(!user.getRole().equals(userDto.getRole()))
+			user.setRole(userDto.getRole());		
+	}
+	
+	public Optional<ApplicationUser> findById(Long id) {
+		return userRepository.findById(id);
+	}
+	
+	public Optional<ApplicationUser> findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 }

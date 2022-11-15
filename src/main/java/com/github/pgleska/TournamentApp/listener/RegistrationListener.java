@@ -40,7 +40,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         		//messages.getMessage("message.regSucc", null, event.getLocale());
         
         SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom("janusz3564@gmail.com");
+        email.setFrom("");
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + "\r\n" + "http://localhost:8080" + confirmationUrl);

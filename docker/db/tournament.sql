@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `application_user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `application_user` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL UNIQUE,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `first_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
@@ -185,12 +185,24 @@ CREATE TABLE `verification_token` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `expiry_date` timestamp NULL DEFAULT NULL,
+  `expiry_date` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `token_user_fkey` (`user_id`),
   CONSTRAINT `token_user_fkey` FOREIGN KEY (`user_id`) REFERENCES `application_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `login_attempt` ;
+
+CREATE TABLE `login_attempt` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `status` int NOT NULL,
+  `attempt_time` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login_attempt_user_fkey` (`user_id`),
+  CONSTRAINT `login_attempt_user_fkey` FOREIGN KEY (`user_id`) REFERENCES `application_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;;
 
 --
 -- Dumping data for table `verification_token`

@@ -37,7 +37,7 @@
 	    </ul>
 	
 	    <ul class="logout">
-	        <li>
+	        <li th:unless="${guest}">
 	           <a href="/logout">
 	                 <i class="fa fa-power-off fa-2x"></i>
 	                <span class="nav-text">
@@ -45,6 +45,14 @@
 	                </span>
 	            </a>
 	        </li>  
+	        <li th:if="${guest}">
+	           <a href="/login">
+	                 <i class="fa fa-power-off fa-2x"></i>
+	                <span class="nav-text">
+	                    Login
+	                </span>
+	            </a>
+	        </li>
 	    </ul>
     </nav>
     <div class="content">
@@ -75,7 +83,7 @@
 	    		</tr>
 	    		<tr>
 	    			<th>Organizer email:</th>
-	    			<td th:text="${tournament.organizer.email}"></td>
+	    			<td th:text="${tournament.organizerEmail}"></td>
 	    		</tr>
 	    	</table>
 	    	<div class="others">
@@ -93,12 +101,12 @@
      				<td th:text="${game.description}"></td>
      				<td>
      					<form th:action="@{/tournaments/} + ${tournament.id} + @{/winner}" method="post">     					     				
-							<select name="winner" id="winner" th:disabled="${game.disableSelect}">
+							<select name="winner" id="winner" th:disabled="${game.disableSelect || disabledSelect}">
 							  <option value="" selected hidden disabled th:text="${game.winnerName}"></option>
 							  <option th:value="${game.playerOneIdentifier}" th:text="${game.playerOneName}"></option>
 							  <option th:value="${game.playerTwoIdentifier}" th:text="${game.playerTwoName}"></option>
 							</select>
-							<input type="submit" value="Confirm" th:disabled="${game.disableSelect}">
+							<input type="submit" value="Confirm" th:disabled="${game.disableSelect || disabledSelect}">
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 						</form>
      				</td>

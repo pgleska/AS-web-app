@@ -22,7 +22,13 @@ public class BaseController {
 	}
 	
 	@GetMapping("/loginfailed")
-	public String loginfailed() {
+	public String loginfailed(@RequestParam("code") Integer code, Model model) {
+		String message;
+		if(code != null && code == 2) 
+			message = "User account is locked. Try after 1 hour."; 
+		else 
+			message = "Incorrect login or password or user has not enabled this account.";
+		model.addAttribute("message", message);
 		return "lfailed";
 	}
 	
@@ -43,22 +49,40 @@ public class BaseController {
 					message = "You must be a tournament organizer to update leaderboard.";
 					break;
 				case 2:
-					message = "Congrats! You joined to tournament.";
+					message = "Congrats! You have joined to tournament.";
 					break;
 				case 3:
 					message = "You've already joined to tournament.";
 					break;
 				case 4:
-					message = "We're sorry. There's no more spots in tournament.";
+					message = "We're sorry. There are no more spots in tournament.";
 					break;
 				case 5:
-					message = "You must choose winner.";
+					message = "You must choose a winner.";
 					break;
 				case 6:
 					message = "User with such email already exists.";
 					break;
 				case 7:
 					message = "User first name, last name, email or passwords cannot be empty. Passwords must match.";
+					break;
+				case 8:
+					message = "Requested tournament was not found.";
+					break;
+				case 9:
+					message = "Invalid format of tournament ID. Must be integer.";
+					break;
+				case 10:
+					message = "Invalid format of properties.";
+					break;
+				case 11:
+					message = "Invalid format of winner input.";
+					break;
+				case 12:
+					message = "User could not be found.";
+					break;
+				case 13:
+					message = "Incorrect format of license number or ranking position.";
 					break;
 				default:
 					message = "Unknown error";

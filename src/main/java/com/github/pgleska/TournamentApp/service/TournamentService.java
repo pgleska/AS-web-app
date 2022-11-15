@@ -1,14 +1,15 @@
 package com.github.pgleska.TournamentApp.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pgleska.TournamentApp.dto.PointDto;
 import com.github.pgleska.TournamentApp.dto.TournamentDto;
 import com.github.pgleska.TournamentApp.model.ApplicationUser;
 import com.github.pgleska.TournamentApp.model.Game;
@@ -42,8 +43,10 @@ public class TournamentService {
 	}
 	
 	@Transactional
-	public String joinToTournament(Integer id, ApplicationUser requester, Point oldPoint) {
+	public String joinToTournament(Integer id, ApplicationUser requester, PointDto oldPoint) {
 		Tournament tournament = tournamentRepository.findById(id).orElse(null);
+		
+		if(Objects.isNull(tournament)) return "missing";
 		
 		if(tournament.getParticipants() < tournament.getMaxNumberOfParticipants()) {
 			Set<ApplicationUser> members = tournament.getMembers();
@@ -174,5 +177,22 @@ public class TournamentService {
 		}
 		gameRepository.saveAll(games);
 		tournament.setGames(games);		
+	}
+	
+	@Transactional
+	public void updateTournament(TournamentDto tournamentDto) {
+		Tournament tournament = tournamentRepository.findById(tournamentDto.getId()).get();
+		ApplicationUser applicationUser = userRepository.findByEmail(tournamentDto.getOrganizerEmail()).get();
+		
+		if(!tournament.getName().equals(tournamentDto.getName())) {
+			tournament.setName(tournamentDto.getName());
+		}
+		if(tournament.getOrganizer().getId() != applicationUser.getId()) {
+			tournament.setOrganizer(applicationUser);
+		}		
+	}
+	
+	public Optional<Tournament> findById(Integer id) {
+		return tournamentRepository.findById(id);
 	}
 }
